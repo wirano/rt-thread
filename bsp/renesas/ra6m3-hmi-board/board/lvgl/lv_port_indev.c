@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2024, RT-Thread Development Team
+ * Copyright (c) 2006-2023, RT-Thread Development Team
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,16 +22,12 @@
 #define GT911_RST_PIN   BSP_IO_PORT_08_PIN_01
 
 static rt_device_t touch_dev;
-struct rt_touch_data *read_data;
 static lv_indev_t *touch_indev;
+struct rt_touch_data *read_data;
 
 volatile static rt_uint8_t touch_detect_flag = 0;
 
-#if LVGL_VERSION_MAJOR < 9
 static void touchpad_read(lv_indev_drv_t *indev, lv_indev_data_t *data)
-#else
-static void touchpad_read(lv_indev_t *indev, lv_indev_data_t *data)
-#endif
 {
     if (touch_detect_flag != 1)
         return;
@@ -126,7 +122,6 @@ rt_err_t rt_hw_gt911_register(void)
 
 void lv_port_indev_init(void)
 {
-#if LVGL_VERSION_MAJOR < 9
     static lv_indev_drv_t indev_drv;         /* Descriptor of a input device driver */
     lv_indev_drv_init(&indev_drv);           /* Basic initialization */
     indev_drv.type = LV_INDEV_TYPE_POINTER;  /* Touch pad is a pointer-like device */
@@ -134,12 +129,7 @@ void lv_port_indev_init(void)
 
     /* Register the driver in LVGL and save the created input device object */
     touch_indev = lv_indev_drv_register(&indev_drv);
-#else
-    /*Register a touchpad input device*/
-    touch_indev = lv_indev_create();
-    lv_indev_set_type(touch_indev, LV_INDEV_TYPE_POINTER);
-    lv_indev_set_read_cb(touch_indev, touchpad_read);
-#endif
+
     /* Register touch device */
     rt_err_t res = rt_hw_gt911_register();
     RT_ASSERT(res == RT_EOK);

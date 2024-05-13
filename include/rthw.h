@@ -227,8 +227,7 @@ void rt_hw_secondary_cpu_up(void);
  * secondary cpu idle function
  */
 void rt_hw_secondary_cpu_idle_exec(void);
-
-#else /* !RT_USING_SMP */
+#else
 
 #define RT_DEFINE_HW_SPINLOCK(x)    rt_ubase_t x
 
@@ -236,13 +235,13 @@ void rt_hw_secondary_cpu_idle_exec(void);
 #define rt_hw_spin_unlock(lock)   rt_hw_interrupt_enable(*(lock))
 
 
-#endif /* RT_USING_SMP */
+#endif
 
 #ifndef RT_USING_CACHE
-    #define rt_hw_isb()
-    #define rt_hw_dmb()
-    #define rt_hw_dsb()
-#endif /* RT_USING_CACHE */
+#define rt_hw_isb()
+#define rt_hw_dmb()
+#define rt_hw_dsb()
+#endif
 
 #ifdef __cplusplus
 }

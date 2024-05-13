@@ -27,7 +27,6 @@ class CPPCheck:
                 [
                     'cppcheck',
                     '-DRT_ASSERT(x)=',
-                    '-DRTM_EXPORT(x)=',
                     '-Drt_list_for_each_entry(a,b,c)=a=(void*)b;',
                     '-I include',
                     '-I thread/components/finsh',

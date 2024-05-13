@@ -53,7 +53,7 @@ It includes:
 
 | Name          | Description                                             |
 | ------------- | ------------------------------------------------------- |
-| bsp        | Board Support Package based on the porting of various development boards |
+| BSP          | Board Support Package based on the porting of various development boards |
 | components    | Components, such as finsh shell, file system, protocol stack etc. |
 | documentation | Related documents, like coding style, doxygen etc.        |
 | examples      | Related sample code                                     |

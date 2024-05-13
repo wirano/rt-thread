@@ -136,8 +136,3 @@ def AddOptions():
                 action = 'store_true',
                 default = False,
                 help = 'make menuconfig for RT-Thread BSP')
-    AddOption('--cdb',
-                dest = 'cdb',
-                action = 'store_true',
-                default = False,
-                help = 'make compile_commands.json')
