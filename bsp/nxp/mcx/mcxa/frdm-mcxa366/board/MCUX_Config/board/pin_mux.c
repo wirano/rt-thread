@@ -489,3 +489,31 @@ void BOARD_InitPins(void)
     PORT_SetPinConfig(PORT1, 17U, &port1_17_pin10_config);
 #endif /* BSP_USING_CAN1 */
 }
+
+void BOARD_InitSLCDPins(void)
+{
+    uint8_t pin;
+
+    /* LCD_P16~LCD_P31 are routed on PORT0_12~PORT0_27 (Alt9). */
+    const port_pin_config_t slcd_pin_config = {
+        .pullSelect = kPORT_PullDisable,
+        .pullValueSelect = kPORT_LowPullResistor,
+        .slewRate = kPORT_FastSlewRate,
+        .passiveFilterEnable = kPORT_PassiveFilterDisable,
+        .openDrainEnable = kPORT_OpenDrainDisable,
+        .driveStrength = kPORT_LowDriveStrength,
+        .driveStrength1 = kPORT_NormalDriveStrength,
+        .mux = kPORT_MuxAlt9,
+        .inputBuffer = kPORT_InputBufferEnable,
+        .invertInput = kPORT_InputNormal,
+        .lockRegister = kPORT_UnlockRegister,
+    };
+
+    CLOCK_EnableClock(kCLOCK_GatePORT0);
+    RESET_ReleasePeripheralReset(kPORT0_RST_SHIFT_RSTn);
+
+    for (pin = 12U; pin <= 27U; pin++)
+    {
+        PORT_SetPinConfig(PORT0, pin, &slcd_pin_config);
+    }
+}

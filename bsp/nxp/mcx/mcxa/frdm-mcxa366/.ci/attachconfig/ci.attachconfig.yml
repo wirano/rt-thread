@@ -44,6 +44,10 @@ Peripheral.canfd:
       - CONFIG_RT_CANSND_MSG_TIMEOUT=100
       - CONFIG_RT_CAN_NB_TX_FIFO_SIZE=1024
 
+Peripheral.slcd:
+    kconfig:
+      - CONFIG_BSP_USING_SLCD=y
+
 # ------ utest CI ------
 utest.pin:
     <<: *scons
